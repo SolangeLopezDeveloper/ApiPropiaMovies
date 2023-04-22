@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {list,detail,store,update,destroy} = require('../../controllers/moviesController');
+const {list,detail,store,update,destroy} = require('../../controllers/moviesApiController');
 
 router
 .get('/',list)

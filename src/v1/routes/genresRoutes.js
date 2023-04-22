@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const {list, detail, store, update, destroy} = require('../../controllers/genresController');
+const {list, detail, store, update, destroy} = require('../../controllers/genresApiController');
 const genresValidator = require('../../validations/genresValidator')
 
 /* /api */
