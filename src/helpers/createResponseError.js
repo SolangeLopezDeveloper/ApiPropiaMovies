@@ -4,7 +4,7 @@ module.exports= (res,error) =>{
         ok : false,
         error : {
             status : error.status || 500,
-            message : error.message || 'Upss, hubo un error :('
+            message : error.message || 'Ocurrió un error'
         }
     })
 }

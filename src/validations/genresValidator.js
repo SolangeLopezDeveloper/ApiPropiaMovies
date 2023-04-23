@@ -9,5 +9,5 @@ module.exports = [
         .withMessage("El campo 'ranking' es obligatorio"),
     check('active')
         .notEmpty()
-        .withMessage("El campo 'active' es obligatorio"),
+        .withMessage("El campo 'active' es obligatorio")
 ]

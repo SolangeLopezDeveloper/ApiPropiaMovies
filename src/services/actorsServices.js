@@ -1,10 +1,9 @@
 const db = require('../database/models');
-
 module.exports = {
-    getAllGenres : async () => {
+    getAllActors : async () => {
        try {
-         const genres = await db.Genre.findAll();
-     return genres 
+         const actors = await db.Actor.findAll();
+     return actors 
     } catch (error){
         throw {
             status : 500,
@@ -12,10 +11,10 @@ module.exports = {
         }
     }
 },
-getOneGenre : async(id) => {
+getOneActor : async(id) => {
     try {
-        const genre = await db.Genre.findByPk(id);
-return genre
+        const actor = await db.Actor.findByPk(id);
+return actor
 
     } catch (error){
         throw {
@@ -24,13 +23,13 @@ return genre
         }
 }
 },
-createGenre : async (data) =>
+createActor : async (data) =>
 {
     try{
-        const newGenre = db.Genre.create({
+        const newActor = db.Actor.create({
             ...data
         })
-        return newGenre
+        return newActor
     } catch (error){
         throw{
             status : 500,
@@ -38,21 +37,21 @@ createGenre : async (data) =>
         }
     }
 },
-updateGenre: async (genreId,genreData) => {
+updateactor: async (actorId,actorData) => {
     try {
    
-      const updGenre= await db.Genre.update(
+      const updActor= await db.Actor.update(
                 {
-                    name: genreData.name,
-                    ranking: genreData.ranking,
-                    active: genreData.active
-                   
+                    first_name: actorData.first_name,
+                    last_name: actorData.last_name,
+                    rating: actorData.rating,
+                    favorite_movie_id: actorData.favorite_movie_id
                 },
                 {
-                    where: { id: genreId }
+                    where: { id: actorId }
                 }
                 )
-                return updGenre
+                return updActor
     } catch (error) {
         throw{
             status : 500,
@@ -60,11 +59,10 @@ updateGenre: async (genreId,genreData) => {
         }
     }
 },
-destroyGenre: async (req,res) => {
+destroyActor: async (req,res) => {
 const id = req.params.id;
-let status = 204;
     try {
-        const confirm = await db.Genre.destroy({
+        const confirm = await db.Actor.destroy({
              where: { 
                 id
              }, 
@@ -72,24 +70,23 @@ let status = 204;
             });
 
         if (confirm) {
-            status = 200;
-            return res.status(status).json({
+            return res.status(200).json({
          
                 ok: true,
                 meta: {
-                    status,
+                    status: 200,
                     total: confirm,
-                    url: `/api/genres/${id}`
+                    url: `/api/actors/${id}`
                 },
                 data: confirm
             })
         } 
-  return res.status(status).json({
+  return res.status(204).json({
                 ok: true,
                 meta: {
-                    status,
+                    status: 204,
                     total: confirm,
-                    url: `/api/genres/${id}`
+                    url: `/api/actors/${id}`
                 },
                 data: confirm
             })

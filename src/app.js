@@ -21,12 +21,14 @@ app.use(methodOverride('_method'));
 
 //rutas
 
-const {actorsRouter,genresRouter,moviesRouter} = require('./v1/routes');
+const {actorsRouter,genresRouter,moviesRouter} = require('./routes');
 const createResponseError = require('./helpers/createResponseError');
+
+
 app
-.use('/api/v1/actors', actorsRouter)
-.use('/api/v1/movies',moviesRouter)
-.use('/api/v1/genres',genresRouter)
+.use('/api/actors', actorsRouter)
+.use('/api/movies',moviesRouter)
+.use('/api/genres',genresRouter)
 
 
 // catch 404 and forward to error handler
