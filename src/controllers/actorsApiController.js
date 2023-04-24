@@ -120,9 +120,14 @@ module.exports = {
         
             },
             destroy: async (req, res) => {
+ 
                 try {
-                    const id = req.params.id;
-                    const dstActor = await destroyActor(req, res, id);
+                    
+                    const {
+                        params : {id}
+                    } = req;
+        
+                    const dstActor = await destroyActor(id);
                     return res.status(200).json({
                         ok: true,
                         meta: {
@@ -132,15 +137,16 @@ module.exports = {
                         },
                         data: dstActor
                     });
-                } catch (error) {
         
+                } catch (error) {
                     return res.status(error.status || 500).json({
-                        ok: false,
-                        error: {
-                            status: error.status || 500,
-                            message: error.message || 'Ocurrió un error'
+                        ok : false,
+                        error : {
+                            status : error.status || 500,
+                            message : error.message || 'Ocurrió un error'
                         }
                     })
                 }
-            },
+            }
+        
 }

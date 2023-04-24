@@ -65,12 +65,12 @@ const genre = await getOneGenre(id)
 },
 store : async (req,res)=>{
 try{
-const errors = validationResult(req);
+/* const errors = validationResult(req);
 
 if(!errors.isEmpty()) throw {
     status : 400,
     message : errors.mapped()
-}
+} */
 
    const newGenre = await createGenre(req.body);
 
@@ -119,7 +119,7 @@ update: async (req, res) => {
     }
 
 },
-destroy: async (req, res) => {
+/* destroy: async (req, res) => {
   
     try {
         const id = req.params.id;
@@ -143,7 +143,26 @@ destroy: async (req, res) => {
             }
         })
     }
-},
+}, */
+destroy: async (req,res) => {
+    try {
+        const {
+            params : {id}
+        } = req;
+        const dstGenre = await destroyGenre(id);
+        return res.status(200).json({
+            ok: true,
+            meta:{
+                status: 200,
+                total:1,
+                url:`/api/genres/${id}`
+            },
+            data: dstGenre
+        });
+    } catch(error) {
+        return createResponseError(res,error)
+    }
+}
 
 }
 

@@ -137,9 +137,14 @@ module.exports = {
 
     },
     destroy: async (req, res) => {
+ 
         try {
-            const id = req.params.id;
-            const dstMovie = await destroyMovie(req, res, id);
+            
+            const {
+                params : {id}
+            } = req;
+
+            const dstMovie = await destroyMovie(id);
             return res.status(200).json({
                 ok: true,
                 meta: {
@@ -149,16 +154,10 @@ module.exports = {
                 },
                 data: dstMovie
             });
-        } catch (error) {
 
-            return res.status(error.status || 500).json({
-                ok: false,
-                error: {
-                    status: error.status || 500,
-                    message: error.message || 'Ocurrió un error'
-                }
-            })
+        } catch (error) {
+            return createResponseError(res,error);
         }
-    },
+    }
 
 }

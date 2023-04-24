@@ -60,7 +60,7 @@ updateGenre: async (genreId,genreData) => {
         }
     }
 },
-destroyGenre: async (req,res) => {
+/* destroyGenre: async (req,res) => {
 const id = req.params.id;
 let status = 204;
     try {
@@ -98,6 +98,21 @@ let status = 204;
         throw{
             status : error.status,
             message : error.message
+        }
+    }
+} */
+destroyGenre : async(id) => {
+    try {
+        const dstGenre = await db.Genre.destroy({
+            where :{
+                id
+            }
+        })
+        return dstGenre;
+    } catch (error) {
+        throw {
+            status : 500,
+            message: error.message
         }
     }
 }

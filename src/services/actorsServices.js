@@ -59,41 +59,15 @@ updateactor: async (actorId,actorData) => {
         }
     }
 },
-destroyActor: async (req,res) => {
-const id = req.params.id;
+destroyActor : async (id) => {
     try {
-        const confirm = await db.Actor.destroy({
-             where: { 
-                id
-             }, 
-             force: true 
-            });
-
-        if (confirm) {
-            return res.status(200).json({
-         
-                ok: true,
-                meta: {
-                    status: 200,
-                    total: confirm,
-                    url: `/api/actors/${id}`
-                },
-                data: confirm
-            })
-        } 
-  return res.status(204).json({
-                ok: true,
-                meta: {
-                    status: 204,
-                    total: confirm,
-                    url: `/api/actors/${id}`
-                },
-                data: confirm
-            })
-       
-    }  catch (error){
-        throw{
-            status : error.status,
+        const dstActor = await db.Actor.destroy({
+            where : {id}
+        });
+        return dstActor;
+    } catch (error) {
+        throw {
+            status : 500,
             message : error.message
         }
     }

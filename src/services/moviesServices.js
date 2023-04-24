@@ -61,44 +61,15 @@ updateMovie: async (movieId,movieData) => {
         }
     }
 },
-destroyMovie: async (req,res) => {
-const id = req.params.id;
-let status = 204;
-
+destroyMovie : async (id) => {
     try {
-        const confirm = await db.Movie.destroy({
-             where: { 
-                id
-             }, 
-             force: true 
-            });
-
-        if (confirm) {
-            status = 200;
-            return res.status(status).json({
-         
-                ok: true,
-                meta: {
-                    status,
-                    total: confirm,
-                    url: `/api/movies/${id}`
-                },
-                data: confirm
-            })
-        } 
-  return res.status(status).json({
-                ok: true,
-                meta: {
-                    status,
-                    total: confirm,
-                    url: `/api/movies/${id}`
-                },
-                data: confirm
-            })
-       
-    }  catch (error){
-        throw{
-            status : error.status,
+        const dstMovie = await db.Movie.destroy({
+            where : {id}
+        });
+        return dstMovie;
+    } catch (error) {
+        throw {
+            status : 500,
             message : error.message
         }
     }
